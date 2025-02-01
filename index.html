@@ -1,13 +1,56 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Resume Evaluator</title>
+  <style>
+    body { font-family: Arial; background: #f4f4f4; padding: 20px; }
+    #upload-container { background: white; padding: 20px; border-radius: 8px; max-width: 400px; margin: auto; }
+    button { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div id="upload-container">
+    <h2>Upload Your Resume (PDF)</h2>
+    <input type="file" id="file-input" accept=".pdf" />
+    <button onclick="uploadFile()">Evaluate Resume</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function uploadFile() {
+      const fileInput = document.getElementById('file-input');
+      const resultDiv = document.getElementById('result');
+
+      if (fileInput.files.length === 0) {
+        alert("Please upload a PDF file.");
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch('http://localhost:5000/predict', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+        console.log("Server Response:", data);
+
+        // Handle response
+        if (data.category) {
+          resultDiv.innerHTML = `<strong>Prediction:</strong> ${data.category}`;
+        } else {
+          resultDiv.innerHTML = `<strong>Error:</strong> ${data.error || "Unknown error"}`;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        resultDiv.innerHTML = "An error occurred while processing the resume.";
+      }
+    }
+  </script>
+</body>
 </html>
