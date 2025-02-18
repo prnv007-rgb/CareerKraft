@@ -1,130 +1,148 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #eef2f3, #d8e3e7);
   margin: 0;
-  padding: 20px;
+  padding: 0;
   display: flex;
-  justify-content: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 600px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
-/* Heading */
-h1 {
-  color: #333;
-}
-
-/* File Upload Section */
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-input[type="file"] {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
+/* Navbar */
+.navbar {
   width: 100%;
-  max-width: 400px;
-  cursor: pointer;
-}
-
-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-/* Resume List */
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.resume-card {
-  background: #fff;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.resume-info {
+  background: rgba(0, 123, 255, 0.9);
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
 
-.resume-info a {
-  text-decoration: none;
-  color: #007bff;
+.navbar .logo {
+  font-size: 24px;
   font-weight: bold;
+  color: white;
+  letter-spacing: 1px;
 }
 
-.resume-info a:hover {
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.navbar ul li a:hover {
   text-decoration: underline;
 }
 
-/* Status Dropdown */
-select {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  cursor: pointer;
+/* Hero Section */
+.hero {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 120px;
+  padding: 50px 20px;
 }
 
-/* Analysis Section */
-.analysis {
-  background: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 14px;
+.hero h1 {
+  font-size: 48px;
+  font-weight: 600;
   color: #333;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
-/* Buttons */
-.toggle-btn {
-  background: #28a745;
+.hero p {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 20px;
 }
 
-.toggle-btn:hover {
-  background: #218838;
+.cta-btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 5px 10px rgba(0, 123, 255, 0.3);
 }
 
-.delete-btn {
-  background: #dc3545;
+.cta-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 15px rgba(0, 123, 255, 0.4);
 }
 
-.delete-btn:hover {
-  background: #c82333;
+/* Features Section */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+  max-width: 1000px;
+  padding: 20px;
 }
 
-/* Empty State */
-.empty {
-  color: #777;
-  font-style: italic;
+.feature-card {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  color: #007bff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.feature-card p {
+  color: #555;
+  font-size: 16px;
+}
+
+/* Footer */
+.footer {
+  background: #007bff;
+  color: white;
+  padding: 20px;
+  margin-top: 40px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
 }
