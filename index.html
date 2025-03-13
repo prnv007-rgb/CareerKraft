@@ -14,23 +14,22 @@
     .nav { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; }
     .nav button { background: rgba(255, 255, 255, 0.2); border: none; padding: 10px 15px; color: white; cursor: pointer; border-radius: 8px; transition: 0.3s; }
     .nav button:hover { background: rgba(255, 255, 255, 0.3); }
-    .upload-box { padding: 20px; background: rgba(255, 255, 255, 0.2); border-radius: 12px; border: 2px dashed rgba(255, 255, 255, 0.5); }
+    .upload-box, .job-form { padding: 20px; background: rgba(255, 255, 255, 0.2); border-radius: 12px; border: 2px dashed rgba(255, 255, 255, 0.5); margin-top: 20px; }
     button { background: linear-gradient(135deg, #ff4d4d, #ff1a1a); color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; transition: 0.3s; }
     button:hover { transform: scale(1.05); }
     .loading { display: none; margin-top: 10px; font-size: 16px; font-weight: bold; color: #ffcc00; }
     .error-message { color: red; display: none; margin-top: 10px; }
-    .section { display: none; } /* Hide sections by default */
-    .active { display: block; } /* Show the active section */
+    .section { display: none; }
+    .active { display: block; }
+    textarea { width: 100%; padding: 10px; border-radius: 5px; margin-top: 10px; }
+    #job-form { display: none; } /* Initially hide job description form */
   </style>
 </head>
 <body>
-
   <div class="container">
     <img src="ck.png" alt="CareerCraft Logo" class="logo" />
     <h1>🚀 CareerCraft: AI Resume Evaluator</h1>
-    <p>Enhance your resume with AI-driven insights and recommendations.</p>
-
-    <!-- Navigation Menu -->
+    
     <div class="nav">
       <button onclick="navigate('home')">🏠 Home</button>
       <button onclick="navigate('about')">📖 About</button>
@@ -38,19 +37,16 @@
       <button onclick="navigate('contact')">📞 Contact</button>
     </div>
 
-    <!-- Home Section -->
     <div id="home" class="section active">
       <h2>Welcome to CareerCraft</h2>
-      <p>Your AI-powered resume evaluator is here to help you improve your resume and get noticed by employers. Upload your resume and get instant feedback!</p>
+      <p>Your AI-powered resume evaluator is here to help you improve your resume and get noticed by employers.</p>
     </div>
 
-    <!-- About Section -->
     <div id="about" class="section">
       <h2>About CareerCraft</h2>
-      <p>CareerCraft is an AI-driven platform that helps job seekers improve their resumes by analyzing and categorizing them as "Good", "Average", or "Bad". With CareerCraft, you can enhance your chances of landing your dream job!</p>
+      <p>CareerCraft analyzes and categorizes resumes as "Good", "Average", or "Bad" to help job seekers enhance their applications.</p>
     </div>
 
-    <!-- Upload Section -->
     <div id="upload" class="section">
       <h2>Upload Your Resume</h2>
       <div class="upload-box">
@@ -58,52 +54,52 @@
         <button onclick="uploadResume()">Upload Resume</button>
         <div id="loading" class="loading">Processing... ⏳</div>
       </div>
-      <ul id="resume-list"></ul>
-      <div id="error-message" class="error-message">Please upload a valid resume in PDF format.</div>
+      <div id="resume-category"></div> <!-- Display category without skills -->
+      <div id="error-message" class="error-message"></div>
+      
+      <!-- Job Description Form -->
+      <div class="job-form" id="job-form">
+        <h2>Enter Job Description</h2>
+        <textarea id="job-description" placeholder="Enter job description..."></textarea>
+        <button id="submit-btn" onclick="submitJobDescription()">Submit</button>
+        <div id="job-result"></div>
+        <div id="feedback-result"></div>
+      </div>
     </div>
 
-    <!-- Contact Section -->
     <div id="contact" class="section">
       <h2>Contact Us</h2>
-      <p>If you have any questions or need support, feel free to reach out to us at:</p>
       <p>Email: support@careercraft.com</p>
       <p>Phone: +1 234 567 890</p>
     </div>
-
   </div>
 
   <script>
-    // Function to navigate between sections
-    function navigate(section) {
-      // Hide all sections
-      const sections = document.querySelectorAll('.section');
-      sections.forEach((section) => {
-        section.classList.remove('active');
-      });
+    let extractedSkills = ""; // Store extracted skills but do not display
 
-      // Show the clicked section
-      const activeSection = document.getElementById(section);
-      if (activeSection) {
-        activeSection.classList.add('active');
-      }
+    function navigate(section) {
+      document.querySelectorAll('.section').forEach((sec) => sec.classList.remove('active'));
+      document.getElementById(section).classList.add('active');
     }
 
-    // Function to handle resume upload
     function uploadResume() {
       const fileInput = document.getElementById("file-input");
       const loading = document.getElementById("loading");
-      const resumeList = document.getElementById("resume-list");
+      const resumeCategory = document.getElementById("resume-category");
       const errorMessage = document.getElementById("error-message");
+      const jobForm = document.getElementById("job-form");
 
       if (!fileInput.files.length) {
-        alert("Please select a file first!");
+        errorMessage.innerText = "Please select a file!";
+        errorMessage.style.display = "block";
         return;
       }
 
       const file = fileInput.files[0];
-
-      loading.style.display = "block"; // Show "Processing..." message
-      errorMessage.style.display = "none"; // Hide error message
+      resumeCategory.innerHTML = "";
+      errorMessage.style.display = "none";
+      loading.style.display = "block";
+      jobForm.style.display = "none"; // Hide job form initially
 
       const formData = new FormData();
       formData.append("file", file);
@@ -114,25 +110,69 @@
       })
       .then(response => response.json())
       .then(data => {
-        loading.style.display = "none"; // Hide loading spinner
-
+        loading.style.display = "none";
         if (data.error) {
-          errorMessage.style.display = "block"; // Show error message
-          resumeList.innerHTML = ""; // Clear previous results
+          errorMessage.style.display = "block";
+          errorMessage.innerText = data.error;
         } else {
-          // Create and append new resume analysis result
-          const li = document.createElement("li");
-          li.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
-          resumeList.appendChild(li);
+          extractedSkills = data.skills || ""; // Store but don't display
+          resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
+          jobForm.style.display = "block"; // Show job form after resume is processed
         }
       })
       .catch(error => {
         loading.style.display = "none";
-        errorMessage.style.display = "block"; // Show error message for other issues
-        alert("Error uploading: " + error.message);
+        errorMessage.style.display = "block";
+        errorMessage.innerText = "Error uploading: " + error.message;
+      });
+    }
+
+    function submitJobDescription() {
+      const jobDesc = document.getElementById("job-description").value.trim();
+      if (!jobDesc) {
+        alert("Please enter a job description!");
+        return;
+      }
+      const jobResult = document.getElementById("job-result");
+      const feedbackResult = document.getElementById("feedback-result");
+      const submitBtn = document.getElementById("submit-btn");
+
+      submitBtn.disabled = true; // Disable button during requests
+
+      // Chain the suitability check and feedback generation sequentially
+      fetch('http://127.0.0.1:5000/check_suitability', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          job_description: jobDesc, 
+          resume_skills: extractedSkills
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        jobResult.innerHTML = `<strong>${data.result}</strong>`;
+        return fetch('http://127.0.0.1:5000/generate_feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            job_description: jobDesc,
+            resume_skills: extractedSkills
+          })
+        });
+      })
+      .then(response => response.json())
+      .then(data => {
+        feedbackResult.innerHTML = `<strong>${data.feedback}</strong>`;
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        // Clear the job description so it doesn't show on the front end after submission
+        document.getElementById("job-description").value = "";
       });
     }
   </script>
-
 </body>
 </html>
