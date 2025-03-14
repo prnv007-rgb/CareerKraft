@@ -54,7 +54,7 @@
         <button onclick="uploadResume()">Upload Resume</button>
         <div id="loading" class="loading">Processing... ⏳</div>
       </div>
-      <div id="resume-category"></div> <!-- Display category without skills -->
+      <div id="resume-category"></div>
       <div id="error-message" class="error-message"></div>
       
       <!-- Job Description Form -->
@@ -78,6 +78,17 @@
     let extractedSkills = ""; // Store extracted skills but do not display
 
     function navigate(section) {
+      // Reset dynamic content when switching tabs
+      document.getElementById("file-input").value = "";
+      document.getElementById("resume-category").innerHTML = "";
+      document.getElementById("error-message").innerHTML = "";
+      document.getElementById("job-description").value = "";
+      document.getElementById("job-result").innerHTML = "";
+      document.getElementById("feedback-result").innerHTML = "";
+      document.getElementById("job-form").style.display = "none";
+      extractedSkills = "";
+      
+      // Switch the active tab
       document.querySelectorAll('.section').forEach((sec) => sec.classList.remove('active'));
       document.getElementById(section).classList.add('active');
     }
@@ -115,9 +126,9 @@
           errorMessage.style.display = "block";
           errorMessage.innerText = data.error;
         } else {
-          extractedSkills = data.skills || ""; // Store but don't display
+          extractedSkills = data.skills || "";
           resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
-          jobForm.style.display = "block"; // Show job form after resume is processed
+          jobForm.style.display = "block";
         }
       })
       .catch(error => {
@@ -137,9 +148,9 @@
       const feedbackResult = document.getElementById("feedback-result");
       const submitBtn = document.getElementById("submit-btn");
 
-      submitBtn.disabled = true; // Disable button during requests
+      submitBtn.disabled = true;
 
-      // Chain the suitability check and feedback generation sequentially
+      // Call suitability check then feedback generation sequentially
       fetch('http://127.0.0.1:5000/check_suitability', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -169,7 +180,6 @@
       })
       .finally(() => {
         submitBtn.disabled = false;
-        // Clear the job description so it doesn't show on the front end after submission
         document.getElementById("job-description").value = "";
       });
     }
