@@ -1,15 +1,15 @@
-[project]
+[tool.poetry]
 name = "careerkraft"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "prnv007-rgb",email = "pranavmallia2004@gmail.com"}
-]
+authors = ["prnv007-rgb <pranavmallia2004@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-]
+packages = [{include = "careerkraft"}]  # Ensure Poetry finds your package
 
+[tool.poetry.dependencies]
+python = ">=3.11, <3.13"  # Render uses 3.11, so keep compatibility
+flask = "^2.2.5"
+gunicorn = "^20.1.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
