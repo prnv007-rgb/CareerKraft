@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "careerkraft"
 version = "0.1.0"
-description = "AI-Powered Resume Reviewer"
+description = ""
 authors = ["prnv007-rgb <pranavmallia2004@gmail.com>"]
 readme = "README.md"
-packages = [{include = "."}]  # <-- This tells Poetry to include everything in the root directory
+packages = [{include = "careerkraft"}]
 
 [tool.poetry.dependencies]
-python = ">=3.11, <3.13"
-flask = "^2.2.5"
+python = ">=3.12"
+flask = "^2.3.3"
 gunicorn = "^20.1.0"
 
 [build-system]
