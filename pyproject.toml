@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "careerkraft"
 version = "0.1.0"
-description = ""
+description = "AI-Powered Resume Reviewer"
 authors = ["prnv007-rgb <pranavmallia2004@gmail.com>"]
 readme = "README.md"
-packages = [{include = "careerkraft"}]  # Ensure Poetry finds your package
+packages = [{include = "."}]  # <-- This tells Poetry to include everything in the root directory
 
 [tool.poetry.dependencies]
-python = ">=3.11, <3.13"  # Render uses 3.11, so keep compatibility
+python = ">=3.11, <3.13"
 flask = "^2.2.5"
 gunicorn = "^20.1.0"
 
