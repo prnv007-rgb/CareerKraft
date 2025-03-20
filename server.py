@@ -183,9 +183,6 @@ def generate_feedback():
         print(f"Error in /generate_feedback: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
-
-
-
+print("GROQ_API_KEY:", os.environ.get("GROQ_API_KEY"))
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 8080))  # Default to 10000
-    app.run(host="0.0.0.0", port=port,debug=True)
+    app.run()

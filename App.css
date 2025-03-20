@@ -1,0 +1,220 @@
+/* Root Variables (adjust to match your brand’s colors) */
+:root {
+  --bg-black: #0f0f0f;   /* or #1f1f1f, whichever matches your Figma */
+  --gold: #c8a15d;       /* pick a gold color from your Figma */
+  --white: #ffffff;
+  --text-gray: #cccccc;  /* for secondary text if needed */
+  --font-family: 'Poppins', sans-serif; /* or your chosen font */
+}
+
+/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-black);
+  color: var(--white);
+  line-height: 1.5;
+}
+
+/* -------------------------
+   Navigation Bar
+----------------------------*/
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: transparent; /* or black if you want a solid bar */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--white);
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+/* -------------------------
+   Hero Section
+----------------------------*/
+.hero-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 2rem;
+  background: var(--bg-black);
+  position: relative;
+  /* If you have decorative shapes, you can absolutely position them here */
+}
+
+.hero-content {
+  flex: 1 1 50%;
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-gray);
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  background-color: var(--gold);
+  color: var(--bg-black);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #b18d4f; /* slightly darker gold */
+}
+
+.hero-illustration {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-placeholder {
+  width: 300px;
+  height: 300px;
+  background-color: var(--gold);
+  border-radius: 8px;
+  /* Replace with actual image or illustration if needed */
+}
+
+/* Example for decorative shapes in the background */
+.hero-section::before,
+.hero-section::after {
+  content: "";
+  position: absolute;
+  background: var(--gold);
+  opacity: 0.2;
+  border-radius: 50%;
+  z-index: 1;
+}
+.hero-section::before {
+  width: 200px;
+  height: 200px;
+  top: -50px;
+  left: -50px;
+}
+.hero-section::after {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  right: -100px;
+}
+
+/* -------------------------
+   Info Section
+----------------------------*/
+.info-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 3rem 2rem;
+  background: var(--bg-black);
+}
+
+.info-box {
+  text-align: center;
+  max-width: 300px;
+}
+
+.info-box h2 {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.info-box p {
+  color: var(--text-gray);
+  font-size: 1rem;
+}
+
+/* -------------------------
+   Resume Cards
+----------------------------*/
+.resume-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: var(--bg-black);
+}
+
+.card {
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  max-width: 200px;
+}
+
+.card img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+/* -------------------------
+   Responsive Adjustments
+----------------------------*/
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-content, .hero-illustration {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .info-section {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .resume-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
