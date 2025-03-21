@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerCraft | AI Resume Evaluator</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="/assets/ck-CH7bME-z.png" />
+  <style>
+    /******************************************************
+     * RESET & BASE STYLES
+     ******************************************************/
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: radial-gradient(circle at top, #1e1e2f, #12121b);
+      color: #ffffff;
+      text-align: center;
+      /* 3D perspective for a professional look */
+      perspective: 1200px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      /* 3D container styling */
+      background: rgba(0,0,0,0.05);
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /******************************************************
+     * NAVIGATION (from your current code)
+     ******************************************************/
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+    .nav button {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 10px 15px;
+      color: #ffffff;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out, transform 0.3s;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    }
+    .nav button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+    }
+
+    /******************************************************
+     * GLOBAL BUTTON STYLE
+     ******************************************************/
+    button {
+      background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: 0.3s ease-in-out;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    /******************************************************
+     * HERO SECTION (from Figma example)
+     ******************************************************/
+    .hero-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 2rem;
+      background: transparent; /* Keep it transparent so radial BG shows */
+      position: relative;
+    }
+    .hero-content {
+      flex: 1 1 50%;
+      max-width: 600px;
+      text-align: left;
+      margin: 0 auto;
+    }
+    .hero-content h1 {
+      font-size: 2.5rem;
+      color: #ffcc00; /* Example highlight color */
+      margin-bottom: 1rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 2rem;
+    }
+    .btn-primary {
+      background-color: #ffcc00;
+      color: #12121b;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #e6b800;
+    }
+    .hero-illustration {
+      flex: 1 1 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .image-placeholder {
+      width: 300px;
+      height: 300px;
+      background-color: #ffcc00;
+      border-radius: 8px;
+    }
+
+    /******************************************************
+     * INFO SECTION & CARDS (from Figma example)
+     ******************************************************/
+    .info-section {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 3rem 2rem;
+    }
+    .info-box {
+      text-align: center;
+      max-width: 300px;
+    }
+    .info-box h2 {
+      font-size: 1.5rem;
+      color: #ffcc00;
+      margin-bottom: 1rem;
+    }
+    .info-box p {
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .resume-cards {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .card {
+      background-color: #1f1f1f;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      max-width: 200px;
+      /* 3D effect for cards */
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateZ(20px);
+    }
+    .card img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      color: #ffcc00;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+
+    /******************************************************
+     * UPLOAD & JOB FORM SECTIONS (from your current code)
+     ******************************************************/
+    .upload-box,
+    .job-form {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      border: 2px dashed rgba(255, 255, 255, 0.5);
+      margin-top: 20px;
+      /* 3D lift */
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      /* Left-to-right entry animation */
+      opacity: 0;
+      transform: translateX(-100%);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    /* When a section is active, force children like .upload-box and .job-form to be visible */
+    .section.active .upload-box,
+    .section.active .job-form {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .loading {
+      display: none;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffcc00;
+    }
+    .error-message {
+      color: red;
+      display: none;
+      margin-top: 10px;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    /******************************************************
+     * SINGLE-PAGE NAVIGATION SECTIONS (Left-to-right Animation)
+     ******************************************************/
+    .section {
+      display: none; /* Hide sections by default */
+      opacity: 0;
+      transform: translateX(-100%);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .active {
+      display: block; /* Only the active section is shown */
+      opacity: 1;
+      transform: translateX(0);
+      animation: slideIn 0.8s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-100%); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    #job-form {
+      display: none; /* Hidden until resume is processed */
+    }
+
+    /******************************************************
+     * RESPONSIVE (from Figma example)
+     ******************************************************/
+    @media (max-width: 768px) {
+      .hero-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-content,
+      .hero-illustration {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+      .info-section {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .resume-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo + Title -->
+    <img src="/assets/ck-CH7bME-z.png" alt="CareerCraft Logo" style="width:120px; margin-bottom:10px;" />
+    <h1>🚀 CareerCraft: AI Resume Evaluator</h1>
+
+    <!-- Navigation (buttons trigger JS to switch sections) -->
+    <div class="nav">
+      <button onclick="navigate('home')">🏠 Home</button>
+      <button onclick="navigate('about')">📖 About</button>
+      <button onclick="navigate('upload')">📤 Upload</button>
+      <button onclick="navigate('contact')">📞 Contact</button>
+    </div>
+
+    <!-- HOME SECTION (Hero + Info + Cards) -->
+    <div id="home" class="section active">
+      <!-- Hero -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1>Revamp your CV on one click!</h1>
+          <p class="subtitle">
+            Top Resume Templates. Build a Perfect Resume with Ease.<br />
+            Create a professional resume in just 15 minutes. Impress employers.
+          </p>
+          <button class="btn-primary" onclick="navigate('upload')">Get Started</button>
+        </div>
+        <div class="hero-illustration">
+          <img src="/assets/gi-Bc1z4oYU.jpg" alt="CareerCraft Hero Image" style="width:100%; max-width:300px; border-radius:8px;">
+        </div>
+      </section>
+      
+      <!-- Info -->
+      <section class="info-section">
+        <div class="info-box">
+          <h2>100+ Templates</h2>
+          <p>Free and Proven Resume Templates</p>
+        </div>
+        <div class="info-box">
+          <h2>Choose Your Templates</h2>
+          <p>Build a perfect resume with easy steps</p>
+        </div>
+      </section>
+      
+      <!-- Example Resume Cards -->
+      <section class="resume-cards">
+        <div class="card">
+          <img src="/assets/res-CLqypgA3.jpg" alt="Resume Template 1" />
+          <h3>Template 1</h3>
+        </div>
+        <div class="card">
+          <img src="resume2.png" alt="Resume Template 2" />
+          <h3>Template 2</h3>
+        </div>
+        <div class="card">
+          <img src="resume3.png" alt="Resume Template 3" />
+          <h3>Template 3</h3>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <div id="about" class="section">
+      <h2>About CareerCraft</h2>
+      <p>
+        CareerCraft analyzes and categorizes resumes as "Good", "Average", or "Bad"
+        to help job seekers enhance their applications.
+      </p>
+    </div>
+
+    <!-- UPLOAD SECTION -->
+    <div id="upload" class="section">
+      <h2>Upload Your Resume</h2>
+      <div class="upload-box">
+        <input type="file" id="file-input" accept=".pdf" />
+        <button onclick="uploadResume()">Upload Resume</button>
+        <div id="loading" class="loading">Processing... ⏳</div>
+      </div>
+      <div id="resume-category"></div>
+      <div id="error-message" class="error-message"></div>
+
+      <!-- Job Description Form -->
+      <div class="job-form" id="job-form">
+        <h2>Enter Job Description</h2>
+        <textarea id="job-description" placeholder="Enter job description..."></textarea>
+        <button id="submit-btn" onclick="submitJobDescription()">Submit</button>
+        <div id="job-result"></div>
+        <div id="feedback-result"></div>
+      </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div id="contact" class="section">
+      <h2>Contact Us</h2>
+      <p>Email: support@careercraft.com</p>
+      <p>Phone: +1 234 567 890</p>
+    </div>
+  </div>
+
+  <script>
+    /******************************************************
+     * SINGLE-PAGE NAVIGATION LOGIC
+     ******************************************************/
+    let extractedSkills = ""; // We'll store extracted skills but not display them directly
+
+    function navigate(section) {
+      // Clear fields whenever we switch sections
+      document.getElementById("file-input").value = "";
+      document.getElementById("resume-category").innerHTML = "";
+      document.getElementById("error-message").innerHTML = "";
+      document.getElementById("job-description").value = "";
+      document.getElementById("job-result").innerHTML = "";
+      document.getElementById("feedback-result").innerHTML = "";
+      document.getElementById("job-form").style.display = "none";
+      extractedSkills = "";
+
+      // Hide all sections (CSS transitions animate them out)
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      // Show the chosen section (CSS transition will animate it in from left)
+      document.getElementById(section).classList.add('active');
+    }
+
+    /******************************************************
+     * UPLOAD & EVALUATION LOGIC
+     ******************************************************/
+    function uploadResume() {
+      const fileInput = document.getElementById("file-input");
+      const loading = document.getElementById("loading");
+      const resumeCategory = document.getElementById("resume-category");
+      const errorMessage = document.getElementById("error-message");
+      const jobForm = document.getElementById("job-form");
+
+      if (!fileInput.files.length) {
+        errorMessage.innerText = "Please select a file!";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      const file = fileInput.files[0];
+      resumeCategory.innerHTML = "";
+      errorMessage.style.display = "none";
+      loading.style.display = "block";
+      jobForm.style.display = "none"; // Hide job form until the resume is processed
+
+      // Prepare data for backend
+      const formData = new FormData();
+      formData.append("file", file);
+
+      fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          loading.style.display = "none";
+          if (data.error) {
+            errorMessage.style.display = "block";
+            errorMessage.innerText = data.error;
+          } else {
+            // Save extracted skills in a variable, but do not show them to user
+            extractedSkills = data.skills || "";
+            resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
+            // Show the job form once we have a successful upload (it will animate in via CSS)
+            jobForm.style.display = "block";
+            // Force reflow to trigger the CSS transition
+            void jobForm.offsetWidth;
+            jobForm.style.opacity = "1";
+            jobForm.style.transform = "translateX(0)";
+          }
+        })
+        .catch(error => {
+          loading.style.display = "none";
+          errorMessage.style.display = "block";
+          errorMessage.innerText = "Error uploading: " + error.message;
+        });
+    }
+
+    function submitJobDescription() {
+      const jobDesc = document.getElementById("job-description").value.trim();
+      if (!jobDesc) {
+        alert("Please enter a job description!");
+        return;
+      }
+
+      const jobResult = document.getElementById("job-result");
+      const feedbackResult = document.getElementById("feedback-result");
+      const submitBtn = document.getElementById("submit-btn");
+
+      submitBtn.disabled = true;
+
+      // First call: check_suitability
+      fetch("http://127.0.0.1:5000/check_suitability", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          job_description: jobDesc,
+          resume_skills: extractedSkills
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          jobResult.innerHTML = `<strong>${data.result}</strong>`;
+          // Second call: generate_feedback
+          return fetch("http://127.0.0.1:5000/generate_feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              job_description: jobDesc,
+              resume_skills: extractedSkills
+            })
+          });
+        })
+        .then(response => response.json())
+        .then(data => {
+          feedbackResult.innerHTML = `<strong>${data.feedback}</strong>`;
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          document.getElementById("job-description").value = "";
+        });
+    }
+  </script>
+</body>
+</html>
