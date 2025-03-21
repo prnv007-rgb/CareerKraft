@@ -18,7 +18,7 @@ def home():
 
 # Load pre-trained tokenizer and model for resume classification
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-model = TFBertForSequenceClassification.from_pretrained("C:/Users/prana/OneDrive/Desktop/nlp/bert_resume_final_model")
+model = TFBertForSequenceClassification.from_pretrained("./bert_resume_final_model")
 
 # Load Named Entity Recognition (NER) model
 ner_pipeline = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english")
