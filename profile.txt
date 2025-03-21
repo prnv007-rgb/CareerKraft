@@ -1,1 +1,0 @@
-Set-Alias poetry "C:\Users\prana\AppData\Roaming\Python\Scripts\poetry.exe"
