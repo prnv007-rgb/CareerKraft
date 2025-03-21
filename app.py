@@ -9,9 +9,9 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-@app.route("/")
-def home():
-    return "Hello World!"
+@app.route("/health")
+def health():
+    return "OK", 200
 # -------------------------------
 # Resume Classification Setup
 # -------------------------------
