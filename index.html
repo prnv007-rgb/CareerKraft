@@ -11,9 +11,7 @@
   />
   <link rel="icon" type="image/png" href="ck.png" />
   <style>
-    /******************************************************
-     * RESET & BASE STYLES
-     ******************************************************/
+    /* RESET & BASE STYLES */
     * {
       margin: 0;
       padding: 0;
@@ -24,22 +22,18 @@
       background: radial-gradient(circle at top, #1e1e2f, #12121b);
       color: #ffffff;
       text-align: center;
-      /* 3D perspective for a professional look */
       perspective: 1200px;
     }
     .container {
       max-width: 1200px;
       margin: auto;
       padding: 20px;
-      /* 3D container styling */
       background: rgba(0,0,0,0.05);
       border-radius: 8px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     }
 
-    /******************************************************
-     * NAVIGATION (from your current code)
-     ******************************************************/
+    /* NAVIGATION */
     .nav {
       display: flex;
       justify-content: center;
@@ -61,9 +55,7 @@
       transform: translateY(-3px);
     }
 
-    /******************************************************
-     * GLOBAL BUTTON STYLE
-     ******************************************************/
+    /* GLOBAL BUTTON STYLE */
     button {
       background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
       color: #ffffff;
@@ -77,16 +69,14 @@
       transform: scale(1.05);
     }
 
-    /******************************************************
-     * HERO SECTION (from Figma example)
-     ******************************************************/
+    /* HERO SECTION */
     .hero-section {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       padding: 3rem 2rem;
-      background: transparent; /* Keep it transparent so radial BG shows */
+      background: transparent;
       position: relative;
     }
     .hero-content {
@@ -97,7 +87,7 @@
     }
     .hero-content h1 {
       font-size: 2.5rem;
-      color: #ffcc00; /* Example highlight color */
+      color: #ffcc00;
       margin-bottom: 1rem;
     }
     .subtitle {
@@ -131,9 +121,7 @@
       border-radius: 8px;
     }
 
-    /******************************************************
-     * INFO SECTION & CARDS (from Figma example)
-     ******************************************************/
+    /* INFO SECTION & RESUME CARDS */
     .info-section {
       display: flex;
       justify-content: space-around;
@@ -153,7 +141,6 @@
       color: #ffffff;
       font-size: 1rem;
     }
-
     .resume-cards {
       display: flex;
       justify-content: center;
@@ -167,7 +154,6 @@
       padding: 1rem;
       text-align: center;
       max-width: 200px;
-      /* 3D effect for cards */
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
       transition: transform 0.3s ease;
     }
@@ -185,26 +171,71 @@
       margin: 0.5rem 0;
     }
 
-    /******************************************************
-     * UPLOAD & JOB FORM SECTIONS (from your current code)
-     ******************************************************/
+    /* CONNECT RECOMMENDATIONS SECTION */
+    .recommendations {
+      margin-top: 20px;
+      perspective: 1000px;
+    }
+    .recommendation-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      animation: slideIn 1s ease-out;
+    }
+    .recommendation-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 15px;
+      width: 280px;
+      transform: rotateY(10deg);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .recommendation-item:hover {
+      transform: rotateY(0deg);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+    }
+    .recommendation-item a {
+      text-decoration: none;
+      color: #ffcc00;
+      font-weight: 600;
+    }
+    .recommendation-item p {
+      margin: 5px 0;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* UPLOAD, JOB FORM & CONNECT SECTIONS */
     .upload-box,
-    .job-form {
+    .job-form,
+    .connect-form {
       padding: 20px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 12px;
       border: 2px dashed rgba(255, 255, 255, 0.5);
       margin-top: 20px;
-      /* 3D lift */
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-      /* Left-to-right entry animation */
       opacity: 0;
       transform: translateX(-100%);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
-    /* When a section is active, force children like .upload-box and .job-form to be visible */
     .section.active .upload-box,
-    .section.active .job-form {
+    .section.active .job-form,
+    .section.active .connect-form {
       opacity: 1;
       transform: translateX(0);
     }
@@ -227,17 +258,15 @@
       margin-top: 10px;
     }
 
-    /******************************************************
-     * SINGLE-PAGE NAVIGATION SECTIONS (Left-to-right Animation)
-     ******************************************************/
+    /* SINGLE-PAGE NAVIGATION SECTIONS */
     .section {
-      display: none; /* Hide sections by default */
+      display: none;
       opacity: 0;
       transform: translateX(-100%);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
     .active {
-      display: block; /* Only the active section is shown */
+      display: block;
       opacity: 1;
       transform: translateX(0);
       animation: slideIn 0.8s ease-out;
@@ -246,20 +275,17 @@
       from { opacity: 0; transform: translateX(-100%); }
       to   { opacity: 1; transform: translateX(0); }
     }
-    #job-form {
-      display: none; /* Hidden until resume is processed */
+    #job-form, #connect-form {
+      display: none;
     }
 
-    /******************************************************
-     * RESPONSIVE (from Figma example)
-     ******************************************************/
+    /* RESPONSIVE STYLES */
     @media (max-width: 768px) {
       .hero-section {
         flex-direction: column;
         text-align: center;
       }
-      .hero-content,
-      .hero-illustration {
+      .hero-content, .hero-illustration {
         flex: 1 1 100%;
         max-width: 100%;
       }
@@ -280,17 +306,16 @@
     <img src="ck.png" alt="CareerCraft Logo" style="width:120px; margin-bottom:10px;" />
     <h1>🚀 CareerCraft: AI Resume Evaluator</h1>
 
-    <!-- Navigation (buttons trigger JS to switch sections) -->
+    <!-- Navigation -->
     <div class="nav">
       <button onclick="navigate('home')">🏠 Home</button>
-      <button onclick="navigate('about')">📖 About</button>
+      <button onclick="navigate('connect')">🔗 Connect</button>
       <button onclick="navigate('upload')">📤 Upload</button>
       <button onclick="navigate('contact')">📞 Contact</button>
     </div>
 
-    <!-- HOME SECTION (Hero + Info + Cards) -->
+    <!-- HOME SECTION -->
     <div id="home" class="section active">
-      <!-- Hero -->
       <section class="hero-section">
         <div class="hero-content">
           <h1>Revamp your CV on one click!</h1>
@@ -305,7 +330,6 @@
         </div>
       </section>
       
-      <!-- Info -->
       <section class="info-section">
         <div class="info-box">
           <h2>100+ Templates</h2>
@@ -317,7 +341,6 @@
         </div>
       </section>
       
-      <!-- Example Resume Cards -->
       <section class="resume-cards">
         <div class="card">
           <img src="res.jpg" alt="Resume Template 1" />
@@ -334,13 +357,15 @@
       </section>
     </div>
 
-    <!-- ABOUT SECTION -->
-    <div id="about" class="section">
-      <h2>About CareerCraft</h2>
-      <p>
-        CareerCraft analyzes and categorizes resumes as "Good", "Average", or "Bad"
-        to help job seekers enhance their applications.
-      </p>
+    <!-- CONNECT SECTION -->
+    <div id="connect" class="section">
+      <h2>Connect with Professionals</h2>
+      <p>Find employees with similar skills on LinkedIn!</p>
+      <div class="connect-form" id="connect-form">
+        <div id="filtered-skills"></div>
+        <button onclick="filterAndConnect()">Filter Skills &amp; Connect</button>
+        <div id="connect-results" class="recommendations"></div>
+      </div>
     </div>
 
     <!-- UPLOAD SECTION -->
@@ -353,7 +378,6 @@
       </div>
       <div id="resume-category"></div>
       <div id="error-message" class="error-message"></div>
-
       <!-- Job Description Form -->
       <div class="job-form" id="job-form">
         <h2>Enter Job Description</h2>
@@ -361,6 +385,7 @@
         <button id="submit-btn" onclick="submitJobDescription()">Submit</button>
         <div id="job-result"></div>
         <div id="feedback-result"></div>
+        <div id="career-recommendation"></div>
       </div>
     </div>
 
@@ -373,31 +398,35 @@
   </div>
 
   <script>
-    /******************************************************
-     * SINGLE-PAGE NAVIGATION LOGIC
-     ******************************************************/
-    let extractedSkills = ""; // We'll store extracted skills but not display them directly
+    let extractedSkills = []; // Global variable to store extracted skills as an array
 
     function navigate(section) {
-      // Clear fields whenever we switch sections
+      // Clear fields and previous results when switching sections
       document.getElementById("file-input").value = "";
       document.getElementById("resume-category").innerHTML = "";
       document.getElementById("error-message").innerHTML = "";
       document.getElementById("job-description").value = "";
       document.getElementById("job-result").innerHTML = "";
       document.getElementById("feedback-result").innerHTML = "";
+      document.getElementById("career-recommendation").innerHTML = "";
+      document.getElementById("filtered-skills").innerHTML = "";
+      document.getElementById("connect-results").innerHTML = "";
       document.getElementById("job-form").style.display = "none";
-      extractedSkills = "";
-
-      // Hide all sections (CSS transitions animate them out)
+      document.getElementById("connect-form").style.display = "none";
+      // Do not clear extractedSkills if already set (from resume upload)
+      
+      // Hide all sections
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      // Show the chosen section (CSS transition will animate it in from left)
+      // Show selected section
       document.getElementById(section).classList.add('active');
+      
+      // If navigating to "connect" and skills exist, display them in the connect form
+      if (section === 'connect' && extractedSkills.length > 0) {
+        document.getElementById("filtered-skills").innerText = "Extracted Skills: " + extractedSkills.join(', ');
+        document.getElementById("connect-form").style.display = "block";
+      }
     }
 
-    /******************************************************
-     * UPLOAD & EVALUATION LOGIC
-     ******************************************************/
     function uploadResume() {
       const fileInput = document.getElementById("file-input");
       const loading = document.getElementById("loading");
@@ -415,9 +444,8 @@
       resumeCategory.innerHTML = "";
       errorMessage.style.display = "none";
       loading.style.display = "block";
-      jobForm.style.display = "none"; // Hide job form until the resume is processed
+      jobForm.style.display = "none";
 
-      // Prepare data for backend
       const formData = new FormData();
       formData.append("file", file);
 
@@ -425,29 +453,27 @@
         method: "POST",
         body: formData
       })
-        .then(response => response.json())
-        .then(data => {
-          loading.style.display = "none";
-          if (data.error) {
-            errorMessage.style.display = "block";
-            errorMessage.innerText = data.error;
-          } else {
-            // Save extracted skills in a variable, but do not show them to user
-            extractedSkills = data.skills || "";
-            resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
-            // Show the job form once we have a successful upload (it will animate in via CSS)
-            jobForm.style.display = "block";
-            // Force reflow to trigger the CSS transition
-            void jobForm.offsetWidth;
-            jobForm.style.opacity = "1";
-            jobForm.style.transform = "translateX(0)";
-          }
-        })
-        .catch(error => {
-          loading.style.display = "none";
+      .then(response => response.json())
+      .then(data => {
+        loading.style.display = "none";
+        if (data.error) {
           errorMessage.style.display = "block";
-          errorMessage.innerText = "Error uploading: " + error.message;
-        });
+          errorMessage.innerText = data.error;
+        } else {
+          // Assume data.skills is an array of skills
+          extractedSkills = data.skills || [];
+          resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
+          jobForm.style.display = "block";
+          void jobForm.offsetWidth;
+          jobForm.style.opacity = "1";
+          jobForm.style.transform = "translateX(0)";
+        }
+      })
+      .catch(error => {
+        loading.style.display = "none";
+        errorMessage.style.display = "block";
+        errorMessage.innerText = "Error uploading: " + error.message;
+      });
     }
 
     function submitJobDescription() {
@@ -457,13 +483,15 @@
         return;
       }
 
-      const jobResult = document.getElementById("job-result");
-      const feedbackResult = document.getElementById("feedback-result");
-      const submitBtn = document.getElementById("submit-btn");
+      // Clear previous results
+      document.getElementById("job-result").innerHTML = "";
+      document.getElementById("feedback-result").innerHTML = "";
+      document.getElementById("career-recommendation").innerHTML = "";
 
+      const submitBtn = document.getElementById("submit-btn");
       submitBtn.disabled = true;
 
-      // First call: check_suitability
+      // First API call: check_suitability
       fetch("http://127.0.0.1:5000/check_suitability", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -472,30 +500,85 @@
           resume_skills: extractedSkills
         })
       })
-        .then(response => response.json())
-        .then(data => {
-          jobResult.innerHTML = `<strong>${data.result}</strong>`;
-          // Second call: generate_feedback
-          return fetch("http://127.0.0.1:5000/generate_feedback", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              job_description: jobDesc,
-              resume_skills: extractedSkills
-            })
-          });
-        })
-        .then(response => response.json())
-        .then(data => {
-          feedbackResult.innerHTML = `<strong>${data.feedback}</strong>`;
-        })
-        .catch(error => {
-          alert("Error: " + error.message);
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-          document.getElementById("job-description").value = "";
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("job-result").innerHTML = `<strong>Suitability: ${data.result}</strong>`;
+        // Second API call: generate_feedback
+        return fetch("http://127.0.0.1:5000/generate_feedback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            job_description: jobDesc,
+            resume_skills: extractedSkills
+          })
         });
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("feedback-result").innerHTML = `<strong>Feedback: ${data.feedback}</strong>`;
+        // Third API call: career_recommendation
+        return fetch("http://127.0.0.1:5000/career_recommendation", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            profile: extractedSkills.join(', ')
+          })
+        });
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("career-recommendation").innerHTML =
+          `<strong>Career Recommendation: ${data.recommendation}</strong>
+           <br><small>Probabilities: ${JSON.stringify(data.probabilities)}</small>`;
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        document.getElementById("job-description").value = "";
+      });
+    }
+
+    function filterAndConnect() {
+      if (!extractedSkills || extractedSkills.length === 0) {
+        alert("No skills available to filter!");
+        return;
+      }
+      // Call the /connect endpoint, sending the extracted skills as an array.
+      fetch("http://127.0.0.1:5000/connect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ skills: extractedSkills })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert("Error: " + data.error);
+        } else {
+          let profilesArray = data.profiles;
+          // Check if profiles are nested
+          if (profilesArray && profilesArray.profiles) {
+            profilesArray = profilesArray.profiles;
+          }
+          // If not an array, wrap it into one.
+          if (!Array.isArray(profilesArray)) {
+            profilesArray = [profilesArray];
+          }
+          let profilesHTML = "<h3>Recommended Connections:</h3><ul class='recommendation-list'>";
+          profilesArray.forEach(profile => {
+            profilesHTML += `<li class="recommendation-item">
+                                <p><a href="${profile.linkedin_url}" target="_blank">${profile.name}</a></p>
+                                <p>${profile.position}</p>
+                             </li>`;
+          });
+          profilesHTML += "</ul>";
+          document.getElementById("connect-results").innerHTML = profilesHTML;
+        }
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      });
     }
   </script>
 </body>
