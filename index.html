@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CareerCraft | AI Resume Evaluator</title>
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="ck.png" />
   <style>
     /* RESET & BASE STYLES */
@@ -28,7 +25,7 @@
       max-width: 1200px;
       margin: auto;
       padding: 20px;
-      background: rgba(0,0,0,0.05);
+      background: rgba(0, 0, 0, 0.15);
       border-radius: 8px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     }
@@ -124,13 +121,21 @@
     /* INFO SECTION & RESUME CARDS */
     .info-section {
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
       align-items: center;
-      padding: 3rem 2rem;
+      gap: 2rem;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 2rem;
     }
     .info-box {
       text-align: center;
-      max-width: 300px;
+      width: 80%;
+      max-width: 500px;
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: transparent;
     }
     .info-box h2 {
       font-size: 1.5rem;
@@ -146,6 +151,7 @@
       justify-content: center;
       gap: 2rem;
       padding: 2rem;
+      flex-wrap: wrap;
     }
     .card {
       background-color: #1f1f1f;
@@ -209,14 +215,8 @@
       margin: 5px 0;
     }
     @keyframes slideIn {
-      from {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     /* UPLOAD, JOB FORM & CONNECT SECTIONS */
@@ -273,7 +273,7 @@
     }
     @keyframes slideIn {
       from { opacity: 0; transform: translateX(-100%); }
-      to   { opacity: 1; transform: translateX(0); }
+      to { opacity: 1; transform: translateX(0); }
     }
     #job-form, #connect-form {
       display: none;
@@ -303,9 +303,8 @@
 <body>
   <div class="container">
     <!-- Logo + Title -->
-    <img src="ck.png" alt="CareerCraft Logo" style="width:120px; margin-bottom:10px;" />
-    <h1>🚀 CareerCraft: AI Resume Evaluator</h1>
-
+    <img src="logo.png" alt="CareerCraft Logo" style="width:120px; margin-bottom:10px;" />
+    <h1>CareerCraft: AI Resume Evaluator</h1>
     <!-- Navigation -->
     <div class="nav">
       <button onclick="navigate('home')">🏠 Home</button>
@@ -313,61 +312,63 @@
       <button onclick="navigate('upload')">📤 Upload</button>
       <button onclick="navigate('contact')">📞 Contact</button>
     </div>
-
     <!-- HOME SECTION -->
     <div id="home" class="section active">
       <section class="hero-section">
         <div class="hero-content">
-          <h1>Revamp your CV on one click!</h1>
+          <h1>One-Click Resume Review & Career Guidance!</h1>
           <p class="subtitle">
-            Top Resume Templates. Build a Perfect Resume with Ease.<br />
-            Create a professional resume in just 15 minutes. Impress employers.
+            Unleash Your Career Potential: Craft a standout resume effortlessly and open doors to exciting opportunities.<br />
+            Create a professional resume in just 15 minutes and impress employers.
           </p>
           <button class="btn-primary" onclick="navigate('upload')">Get Started</button>
         </div>
         <div class="hero-illustration">
-          <img src="gi.jpg" alt="CareerCraft Hero Image" style="width:100%; max-width:300px; border-radius:8px;">
+          <img src="h.png" alt="CareerCraft Hero Image" style="width:100%; max-width:300px; border-radius:8px;">
         </div>
       </section>
-      
       <section class="info-section">
-        <div class="info-box">
-          <h2>100+ Templates</h2>
-          <p>Free and Proven Resume Templates</p>
+        <div class="info-box" style="background: transparent;">
+          <h2>Sample Resume Templates</h2>
+          <p>Free and proven templates to get you started.</p>
         </div>
-        <div class="info-box">
-          <h2>Choose Your Templates</h2>
-          <p>Build a perfect resume with easy steps</p>
+        <div class="info-box" style="background: transparent;">
+          <h2 style="color: #ffcc00;">Choose Your Templates</h2>
+          <button class="download-btn" style="padding: 0.75rem 1.5rem; background-color: #ffcc00; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; color: #12121b;" onclick="downloadResume()">
+            Download Resume Templates
+          </button>
         </div>
       </section>
-      
       <section class="resume-cards">
         <div class="card">
-          <img src="res.jpg" alt="Resume Template 1" />
-          <h3>Template 1</h3>
+          <a href="resume1.pdf" download="resume1.pdf" style="text-decoration: none; color: inherit;">
+            <img src="res.jpg" alt="Resume Template 1 Preview" />
+            <h3>Resume 1</h3>
+          </a>
         </div>
         <div class="card">
-          <img src="resume2.png" alt="Resume Template 2" />
-          <h3>Template 2</h3>
+          <a href="resume2.pdf" download="resume2.pdf" style="text-decoration: none; color: inherit;">
+            <img src="res3.png" alt="Resume Template 2 Preview" />
+            <h3>Resume 2</h3>
+          </a>
         </div>
         <div class="card">
-          <img src="resume3.png" alt="Resume Template 3" />
-          <h3>Template 3</h3>
+          <a href="resume3.pdf" download="resume3.pdf" style="text-decoration: none; color: inherit;">
+            <img src="res2.png" alt="Resume Template 3 Preview" />
+            <h3>Template 3</h3>
+          </a>
         </div>
       </section>
     </div>
-
     <!-- CONNECT SECTION -->
     <div id="connect" class="section">
       <h2>Connect with Professionals</h2>
-      <p>Find employees with similar skills on LinkedIn!</p>
+      <p>Showcase your filtered skills and connect with like-minded professionals on LinkedIn.</p>
       <div class="connect-form" id="connect-form">
         <div id="filtered-skills"></div>
-        <button onclick="filterAndConnect()">Filter Skills &amp; Connect</button>
-        <div id="connect-results" class="recommendations"></div>
+        <button onclick="redirectToLinkedIn()">Connect on LinkedIn</button>
       </div>
     </div>
-
     <!-- UPLOAD SECTION -->
     <div id="upload" class="section">
       <h2>Upload Your Resume</h2>
@@ -388,7 +389,6 @@
         <div id="career-recommendation"></div>
       </div>
     </div>
-
     <!-- CONTACT SECTION -->
     <div id="contact" class="section">
       <h2>Contact Us</h2>
@@ -396,9 +396,8 @@
       <p>Phone: +1 234 567 890</p>
     </div>
   </div>
-
   <script>
-    let extractedSkills = []; // Global variable to store extracted skills as an array
+    let extractedSkills = []; // Global variable to store extracted skills
 
     function navigate(section) {
       // Clear fields and previous results when switching sections
@@ -410,18 +409,14 @@
       document.getElementById("feedback-result").innerHTML = "";
       document.getElementById("career-recommendation").innerHTML = "";
       document.getElementById("filtered-skills").innerHTML = "";
-      document.getElementById("connect-results").innerHTML = "";
-      document.getElementById("job-form").style.display = "none";
-      document.getElementById("connect-form").style.display = "none";
-      // Do not clear extractedSkills if already set (from resume upload)
       
       // Hide all sections
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      // Show selected section
-      document.getElementById(section).classList.add('active');
+      // Show selected section (IDs are lowercase)
+      document.getElementById(section.toLowerCase()).classList.add('active');
       
-      // If navigating to "connect" and skills exist, display them in the connect form
-      if (section === 'connect' && extractedSkills.length > 0) {
+      // If navigating to "connect" and skills exist, display them
+      if (section.toLowerCase() === 'connect' && extractedSkills.length > 0) {
         document.getElementById("filtered-skills").innerText = "Extracted Skills: " + extractedSkills.join(', ');
         document.getElementById("connect-form").style.display = "block";
       }
@@ -449,7 +444,8 @@
       const formData = new FormData();
       formData.append("file", file);
 
-      fetch("http://127.0.0.1:5000/predict", {
+      // Use the resume_feedback endpoint to get feedback, category and skills.
+      fetch("http://127.0.0.1:5000/resume_feedback", {
         method: "POST",
         body: formData
       })
@@ -460,9 +456,41 @@
           errorMessage.style.display = "block";
           errorMessage.innerText = data.error;
         } else {
-          // Assume data.skills is an array of skills
+          // Update extractedSkills from response.
           extractedSkills = data.skills || [];
           resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
+          
+          // Process feedback if available, removing keys and the last sentence from encouragement.
+          if (data.feedback) {
+  let feedbackText = "";
+  if (typeof data.feedback === "string" && data.feedback.trim().startsWith("{") && data.feedback.trim().endsWith("}")) {
+    try {
+      let parsedFeedback = JSON.parse(data.feedback);
+      feedbackText = parsedFeedback.feedback || "";
+    } catch (e) {
+      feedbackText = data.feedback;
+    }
+  } else if (typeof data.feedback === "object" && !Array.isArray(data.feedback)) {
+    if (data.feedback.suggestions && Array.isArray(data.feedback.suggestions)) {
+      feedbackText += data.feedback.suggestions.join("<br>");
+    }
+    if (data.feedback.encouragement) {
+      let encouragement = data.feedback.encouragement.replace(/\.?\s*Also,.*$/, "");
+      feedbackText += (feedbackText ? "<br>" : "") + encouragement;
+    }
+    if (!feedbackText) {
+      feedbackText = Object.values(data.feedback).join("<br>");
+    }
+  } else if (Array.isArray(data.feedback)) {
+    feedbackText = data.feedback.join("<br>");
+  } else {
+    feedbackText = data.feedback;
+  }
+  // Ensure feedbackText is a string before trimming.
+  feedbackText = String(feedbackText).trim();
+  resumeCategory.innerHTML += `<br><em>${feedbackText}</em>`;
+}
+
           jobForm.style.display = "block";
           void jobForm.offsetWidth;
           jobForm.style.opacity = "1";
@@ -491,7 +519,6 @@
       const submitBtn = document.getElementById("submit-btn");
       submitBtn.disabled = true;
 
-      // First API call: check_suitability
       fetch("http://127.0.0.1:5000/check_suitability", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -540,45 +567,18 @@
       });
     }
 
-    function filterAndConnect() {
-      if (!extractedSkills || extractedSkills.length === 0) {
-        alert("No skills available to filter!");
-        return;
-      }
-      // Call the /connect endpoint, sending the extracted skills as an array.
-      fetch("http://127.0.0.1:5000/connect", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ skills: extractedSkills })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          alert("Error: " + data.error);
-        } else {
-          let profilesArray = data.profiles;
-          // Check if profiles are nested
-          if (profilesArray && profilesArray.profiles) {
-            profilesArray = profilesArray.profiles;
-          }
-          // If not an array, wrap it into one.
-          if (!Array.isArray(profilesArray)) {
-            profilesArray = [profilesArray];
-          }
-          let profilesHTML = "<h3>Recommended Connections:</h3><ul class='recommendation-list'>";
-          profilesArray.forEach(profile => {
-            profilesHTML += `<li class="recommendation-item">
-                                <p><a href="${profile.linkedin_url}" target="_blank">${profile.name}</a></p>
-                                <p>${profile.position}</p>
-                             </li>`;
-          });
-          profilesHTML += "</ul>";
-          document.getElementById("connect-results").innerHTML = profilesHTML;
-        }
-      })
-      .catch(error => {
-        alert("Error: " + error.message);
-      });
+    function redirectToLinkedIn() {
+      window.open("https://www.linkedin.com/", "_blank");
+    }
+
+    // This function is only called when the download button in the info section is clicked.
+    function downloadResume() {
+      const link = document.createElement('a');
+      link.href = 'resume1.pdf';
+      link.download = 'resume1.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   </script>
 </body>

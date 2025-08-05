@@ -300,7 +300,7 @@ def resume_feedback():
         # Extract skills from resume.
         extracted_skills = extract_skills_from_resume(resume_text)
 
-        # If resume is classified as "Good", skip LLM feedback.
+        # If resume is classified as "Good", skip Llama feedback.
         if resume_category.lower() not in ["bad", "average"]:
             return jsonify({
                 "category": resume_category,
@@ -309,8 +309,8 @@ def resume_feedback():
             }), 200
 
         # For "Bad" or "Average" resumes, build the Llama feedback prompt.
-        # Trim the resume text to avoid too long of a prompt.
-        trimmed_resume = resume_text[:1000] + "..." if len(resume_text) > 1000 else resume_text
+        # Note: We instruct the model to include the word "json" for format confirmation, but we remove it later.
+        trimmed_resume = resume_text[:1000]  # Optionally trim for brevity if needed.
         prompt = (
             f"You are a professional career consultant. The resume provided below has been categorized as {resume_category}. "
             "Please provide constructive, friendly, and professional feedback in 3-5 concise sentences on how to improve the resume. "
@@ -318,7 +318,6 @@ def resume_feedback():
             "Also, include the word 'json' somewhere in your response to confirm the format. "
             "\n\nResume:\n" + trimmed_resume + "\n\nFeedback:"
         )
-        print("Feedback Prompt:", prompt)
 
         # Call the Llama API via GROQ.
         response = requests.post(
@@ -330,23 +329,25 @@ def resume_feedback():
             json={
                 "model": "deepseek-r1-distill-llama-70b",
                 "messages": [{"role": "user", "content": prompt}],
-                "response_format": {"type": "json_object"}
+                # We request plain text instead of JSON object.
+                "response_format": {"type": "text"}
             }
         )
-        print("Feedback API Response Status:", response.status_code)
-        print("Feedback API Full Response:", response.text)
         
-        # If Llama API call succeeds, extract the feedback; otherwise, use a fallback message.
         if response.status_code == 200:
+            # Get the feedback text.
             feedback = response.json()["choices"][0]["message"]["content"].strip()
-            if not feedback:
-                feedback = "No feedback generated"
         else:
+            print(f"Llama API call failed with status code: {response.status_code}")
+            print("Response content:", response.text)
             feedback = "Failed to generate feedback."
-
+        
+        # Remove the word "json" from the feedback before sending it to the frontend.
+        cleaned_feedback = re.sub(r'\bjson\b', '', feedback, flags=re.IGNORECASE).strip()
+        
         return jsonify({
             "category": resume_category,
-            "feedback": feedback,
+            "feedback": cleaned_feedback,
             "skills": extracted_skills
         })
     except Exception as e:
@@ -485,12 +486,10 @@ def career_recommendation():
 # Note on LinkedIn Redirection
 # -------------------------------
 # The original "/connect" endpoint that used the LLM to generate LinkedIn profile recommendations has been removed.
-# Instead, your frontend button can simply redirect the user to LinkedIn. For example:
-#
+# Instead, your frontend button can simply redirect the user to LinkedIn.
+# For example:
 #   window.open("https://www.linkedin.com/", "_blank");
-#
 # This ensures users are taken directly to LinkedIn without backend intervention.
 
 if __name__ == '__main__':
-    # This is for local development. Gunicorn will be used in production.
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run()
