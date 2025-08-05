@@ -1,0 +1,6 @@
+# Ignore model files
+models/
+career_recommendation_model.pt
+
+# Ignore Python virtual environment
+venv/
