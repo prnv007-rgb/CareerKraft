@@ -4,3 +4,5 @@ career_recommendation_model.pt
 
 # Ignore Python virtual environment
 venv/
+# Local Netlify folder
+.netlify

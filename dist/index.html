@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CareerCraft | AI Resume Evaluator</title>
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/assets/ck-CH7bME-z.png" />
   <style>
-    /******************************************************
-     * RESET & BASE STYLES
-     ******************************************************/
+    /* RESET & BASE STYLES */
     * {
       margin: 0;
       padding: 0;
@@ -24,22 +19,18 @@
       background: radial-gradient(circle at top, #1e1e2f, #12121b);
       color: #ffffff;
       text-align: center;
-      /* 3D perspective for a professional look */
       perspective: 1200px;
     }
     .container {
       max-width: 1200px;
       margin: auto;
       padding: 20px;
-      /* 3D container styling */
-      background: rgba(0,0,0,0.05);
+      background: rgba(0, 0, 0, 0.15);
       border-radius: 8px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     }
 
-    /******************************************************
-     * NAVIGATION (from your current code)
-     ******************************************************/
+    /* NAVIGATION */
     .nav {
       display: flex;
       justify-content: center;
@@ -61,9 +52,7 @@
       transform: translateY(-3px);
     }
 
-    /******************************************************
-     * GLOBAL BUTTON STYLE
-     ******************************************************/
+    /* GLOBAL BUTTON STYLE */
     button {
       background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
       color: #ffffff;
@@ -77,16 +66,14 @@
       transform: scale(1.05);
     }
 
-    /******************************************************
-     * HERO SECTION (from Figma example)
-     ******************************************************/
+    /* HERO SECTION */
     .hero-section {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       padding: 3rem 2rem;
-      background: transparent; /* Keep it transparent so radial BG shows */
+      background: transparent;
       position: relative;
     }
     .hero-content {
@@ -97,7 +84,7 @@
     }
     .hero-content h1 {
       font-size: 2.5rem;
-      color: #ffcc00; /* Example highlight color */
+      color: #ffcc00;
       margin-bottom: 1rem;
     }
     .subtitle {
@@ -131,18 +118,24 @@
       border-radius: 8px;
     }
 
-    /******************************************************
-     * INFO SECTION & CARDS (from Figma example)
-     ******************************************************/
+    /* INFO SECTION & RESUME CARDS */
     .info-section {
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
       align-items: center;
-      padding: 3rem 2rem;
+      gap: 2rem;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 2rem;
     }
     .info-box {
       text-align: center;
-      max-width: 300px;
+      width: 80%;
+      max-width: 500px;
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: transparent;
     }
     .info-box h2 {
       font-size: 1.5rem;
@@ -153,12 +146,12 @@
       color: #ffffff;
       font-size: 1rem;
     }
-
     .resume-cards {
       display: flex;
       justify-content: center;
       gap: 2rem;
       padding: 2rem;
+      flex-wrap: wrap;
     }
     .card {
       background-color: #1f1f1f;
@@ -167,7 +160,6 @@
       padding: 1rem;
       text-align: center;
       max-width: 200px;
-      /* 3D effect for cards */
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
       transition: transform 0.3s ease;
     }
@@ -185,26 +177,65 @@
       margin: 0.5rem 0;
     }
 
-    /******************************************************
-     * UPLOAD & JOB FORM SECTIONS (from your current code)
-     ******************************************************/
+    /* CONNECT RECOMMENDATIONS SECTION */
+    .recommendations {
+      margin-top: 20px;
+      perspective: 1000px;
+    }
+    .recommendation-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      animation: slideIn 1s ease-out;
+    }
+    .recommendation-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 15px;
+      width: 280px;
+      transform: rotateY(10deg);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .recommendation-item:hover {
+      transform: rotateY(0deg);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+    }
+    .recommendation-item a {
+      text-decoration: none;
+      color: #ffcc00;
+      font-weight: 600;
+    }
+    .recommendation-item p {
+      margin: 5px 0;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* UPLOAD, JOB FORM & CONNECT SECTIONS */
     .upload-box,
-    .job-form {
+    .job-form,
+    .connect-form {
       padding: 20px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 12px;
       border: 2px dashed rgba(255, 255, 255, 0.5);
       margin-top: 20px;
-      /* 3D lift */
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-      /* Left-to-right entry animation */
       opacity: 0;
       transform: translateX(-100%);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
-    /* When a section is active, force children like .upload-box and .job-form to be visible */
     .section.active .upload-box,
-    .section.active .job-form {
+    .section.active .job-form,
+    .section.active .connect-form {
       opacity: 1;
       transform: translateX(0);
     }
@@ -227,39 +258,34 @@
       margin-top: 10px;
     }
 
-    /******************************************************
-     * SINGLE-PAGE NAVIGATION SECTIONS (Left-to-right Animation)
-     ******************************************************/
+    /* SINGLE-PAGE NAVIGATION SECTIONS */
     .section {
-      display: none; /* Hide sections by default */
+      display: none;
       opacity: 0;
       transform: translateX(-100%);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
     .active {
-      display: block; /* Only the active section is shown */
+      display: block;
       opacity: 1;
       transform: translateX(0);
       animation: slideIn 0.8s ease-out;
     }
     @keyframes slideIn {
       from { opacity: 0; transform: translateX(-100%); }
-      to   { opacity: 1; transform: translateX(0); }
+      to { opacity: 1; transform: translateX(0); }
     }
-    #job-form {
-      display: none; /* Hidden until resume is processed */
+    #job-form, #connect-form {
+      display: none;
     }
 
-    /******************************************************
-     * RESPONSIVE (from Figma example)
-     ******************************************************/
+    /* RESPONSIVE STYLES */
     @media (max-width: 768px) {
       .hero-section {
         flex-direction: column;
         text-align: center;
       }
-      .hero-content,
-      .hero-illustration {
+      .hero-content, .hero-illustration {
         flex: 1 1 100%;
         max-width: 100%;
       }
@@ -277,72 +303,72 @@
 <body>
   <div class="container">
     <!-- Logo + Title -->
-    <img src="/assets/ck-CH7bME-z.png" alt="CareerCraft Logo" style="width:120px; margin-bottom:10px;" />
-    <h1>🚀 CareerCraft: AI Resume Evaluator</h1>
-
-    <!-- Navigation (buttons trigger JS to switch sections) -->
+    <img src="/assets/logo-BwK4bBKf.png" alt="CareerCraft Logo" style="width:120px; margin-bottom:10px;" />
+    <h1>CareerCraft: AI Resume Evaluator</h1>
+    <!-- Navigation -->
     <div class="nav">
       <button onclick="navigate('home')">🏠 Home</button>
-      <button onclick="navigate('about')">📖 About</button>
+      <button onclick="navigate('connect')">🔗 Connect</button>
       <button onclick="navigate('upload')">📤 Upload</button>
       <button onclick="navigate('contact')">📞 Contact</button>
     </div>
-
-    <!-- HOME SECTION (Hero + Info + Cards) -->
+    <!-- HOME SECTION -->
     <div id="home" class="section active">
-      <!-- Hero -->
       <section class="hero-section">
         <div class="hero-content">
-          <h1>Revamp your CV on one click!</h1>
+          <h1>One-Click Resume Review & Career Guidance!</h1>
           <p class="subtitle">
-            Top Resume Templates. Build a Perfect Resume with Ease.<br />
-            Create a professional resume in just 15 minutes. Impress employers.
+            Unleash Your Career Potential: Craft a standout resume effortlessly and open doors to exciting opportunities.<br />
+            Create a professional resume in just 15 minutes and impress employers.
           </p>
           <button class="btn-primary" onclick="navigate('upload')">Get Started</button>
         </div>
         <div class="hero-illustration">
-          <img src="/assets/gi-Bc1z4oYU.jpg" alt="CareerCraft Hero Image" style="width:100%; max-width:300px; border-radius:8px;">
+          <img src="/assets/h-j36is_wI.png" alt="CareerCraft Hero Image" style="width:100%; max-width:300px; border-radius:8px;">
         </div>
       </section>
-      
-      <!-- Info -->
       <section class="info-section">
-        <div class="info-box">
-          <h2>100+ Templates</h2>
-          <p>Free and Proven Resume Templates</p>
+        <div class="info-box" style="background: transparent;">
+          <h2>Sample Resume Templates</h2>
+          <p>Free and proven templates to get you started.</p>
         </div>
-        <div class="info-box">
-          <h2>Choose Your Templates</h2>
-          <p>Build a perfect resume with easy steps</p>
+        <div class="info-box" style="background: transparent;">
+          <h2 style="color: #ffcc00;">Choose Your Templates</h2>
+          <button class="download-btn" style="padding: 0.75rem 1.5rem; background-color: #ffcc00; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; color: #12121b;" onclick="downloadResume()">
+            Download Resume Templates
+          </button>
         </div>
       </section>
-      
-      <!-- Example Resume Cards -->
       <section class="resume-cards">
         <div class="card">
-          <img src="/assets/res-CLqypgA3.jpg" alt="Resume Template 1" />
-          <h3>Template 1</h3>
+          <a href="resume1.pdf" download="resume1.pdf" style="text-decoration: none; color: inherit;">
+            <img src="/assets/res-CLqypgA3.jpg" alt="Resume Template 1 Preview" />
+            <h3>Resume 1</h3>
+          </a>
         </div>
         <div class="card">
-          <img src="resume2.png" alt="Resume Template 2" />
-          <h3>Template 2</h3>
+          <a href="resume2.pdf" download="resume2.pdf" style="text-decoration: none; color: inherit;">
+            <img src="/assets/res3-DPfG9eeb.png" alt="Resume Template 2 Preview" />
+            <h3>Resume 2</h3>
+          </a>
         </div>
         <div class="card">
-          <img src="resume3.png" alt="Resume Template 3" />
-          <h3>Template 3</h3>
+          <a href="resume3.pdf" download="resume3.pdf" style="text-decoration: none; color: inherit;">
+            <img src="/assets/res2-C_NQpwJs.png" alt="Resume Template 3 Preview" />
+            <h3>Template 3</h3>
+          </a>
         </div>
       </section>
     </div>
-
-    <!-- ABOUT SECTION -->
-    <div id="about" class="section">
-      <h2>About CareerCraft</h2>
-      <p>
-        CareerCraft analyzes and categorizes resumes as "Good", "Average", or "Bad"
-        to help job seekers enhance their applications.
-      </p>
+    <!-- CONNECT SECTION -->
+    <div id="connect" class="section">
+      <h2>Connect with Professionals</h2>
+      <p>Showcase your filtered skills and connect with like-minded professionals on LinkedIn.</p>
+      <div class="connect-form" id="connect-form">
+        <div id="filtered-skills"></div>
+        <button onclick="redirectToLinkedIn()">Connect on LinkedIn</button>
+      </div>
     </div>
-
     <!-- UPLOAD SECTION -->
     <div id="upload" class="section">
       <h2>Upload Your Resume</h2>
@@ -353,7 +379,6 @@
       </div>
       <div id="resume-category"></div>
       <div id="error-message" class="error-message"></div>
-
       <!-- Job Description Form -->
       <div class="job-form" id="job-form">
         <h2>Enter Job Description</h2>
@@ -361,9 +386,9 @@
         <button id="submit-btn" onclick="submitJobDescription()">Submit</button>
         <div id="job-result"></div>
         <div id="feedback-result"></div>
+        <div id="career-recommendation"></div>
       </div>
     </div>
-
     <!-- CONTACT SECTION -->
     <div id="contact" class="section">
       <h2>Contact Us</h2>
@@ -371,33 +396,33 @@
       <p>Phone: +1 234 567 890</p>
     </div>
   </div>
-
   <script>
-    /******************************************************
-     * SINGLE-PAGE NAVIGATION LOGIC
-     ******************************************************/
-    let extractedSkills = ""; // We'll store extracted skills but not display them directly
+    const API_URL = "http://3.109.47.124";
+    let extractedSkills = []; // Global variable to store extracted skills
 
     function navigate(section) {
-      // Clear fields whenever we switch sections
+      // Clear fields and previous results when switching sections
       document.getElementById("file-input").value = "";
       document.getElementById("resume-category").innerHTML = "";
       document.getElementById("error-message").innerHTML = "";
       document.getElementById("job-description").value = "";
       document.getElementById("job-result").innerHTML = "";
       document.getElementById("feedback-result").innerHTML = "";
-      document.getElementById("job-form").style.display = "none";
-      extractedSkills = "";
-
-      // Hide all sections (CSS transitions animate them out)
+      document.getElementById("career-recommendation").innerHTML = "";
+      document.getElementById("filtered-skills").innerHTML = "";
+      
+      // Hide all sections
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      // Show the chosen section (CSS transition will animate it in from left)
-      document.getElementById(section).classList.add('active');
+      // Show selected section (IDs are lowercase)
+      document.getElementById(section.toLowerCase()).classList.add('active');
+      
+      // If navigating to "connect" and skills exist, display them
+      if (section.toLowerCase() === 'connect' && extractedSkills.length > 0) {
+        document.getElementById("filtered-skills").innerText = "Extracted Skills: " + extractedSkills.join(', ');
+        document.getElementById("connect-form").style.display = "block";
+      }
     }
 
-    /******************************************************
-     * UPLOAD & EVALUATION LOGIC
-     ******************************************************/
     function uploadResume() {
       const fileInput = document.getElementById("file-input");
       const loading = document.getElementById("loading");
@@ -415,39 +440,69 @@
       resumeCategory.innerHTML = "";
       errorMessage.style.display = "none";
       loading.style.display = "block";
-      jobForm.style.display = "none"; // Hide job form until the resume is processed
+      jobForm.style.display = "none";
 
-      // Prepare data for backend
       const formData = new FormData();
       formData.append("file", file);
 
-      fetch("http://127.0.0.1:5000/predict", {
+      // Use the resume_feedback endpoint to get feedback, category and skills.
+      fetch(`${API_URL}/resume_feedback`, {
         method: "POST",
         body: formData
       })
-        .then(response => response.json())
-        .then(data => {
-          loading.style.display = "none";
-          if (data.error) {
-            errorMessage.style.display = "block";
-            errorMessage.innerText = data.error;
-          } else {
-            // Save extracted skills in a variable, but do not show them to user
-            extractedSkills = data.skills || "";
-            resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
-            // Show the job form once we have a successful upload (it will animate in via CSS)
-            jobForm.style.display = "block";
-            // Force reflow to trigger the CSS transition
-            void jobForm.offsetWidth;
-            jobForm.style.opacity = "1";
-            jobForm.style.transform = "translateX(0)";
-          }
-        })
-        .catch(error => {
-          loading.style.display = "none";
+      .then(response => response.json())
+      .then(data => {
+        loading.style.display = "none";
+        if (data.error) {
           errorMessage.style.display = "block";
-          errorMessage.innerText = "Error uploading: " + error.message;
-        });
+          errorMessage.innerText = data.error;
+        } else {
+          // Update extractedSkills from response.
+          extractedSkills = data.skills || [];
+          resumeCategory.innerHTML = `📄 ${file.name} - <strong>${data.category}</strong>`;
+          
+          // Process feedback if available, removing keys and the last sentence from encouragement.
+          if (data.feedback) {
+  let feedbackText = "";
+  if (typeof data.feedback === "string" && data.feedback.trim().startsWith("{") && data.feedback.trim().endsWith("}")) {
+    try {
+      let parsedFeedback = JSON.parse(data.feedback);
+      feedbackText = parsedFeedback.feedback || "";
+    } catch (e) {
+      feedbackText = data.feedback;
+    }
+  } else if (typeof data.feedback === "object" && !Array.isArray(data.feedback)) {
+    if (data.feedback.suggestions && Array.isArray(data.feedback.suggestions)) {
+      feedbackText += data.feedback.suggestions.join("<br>");
+    }
+    if (data.feedback.encouragement) {
+      let encouragement = data.feedback.encouragement.replace(/\.?\s*Also,.*$/, "");
+      feedbackText += (feedbackText ? "<br>" : "") + encouragement;
+    }
+    if (!feedbackText) {
+      feedbackText = Object.values(data.feedback).join("<br>");
+    }
+  } else if (Array.isArray(data.feedback)) {
+    feedbackText = data.feedback.join("<br>");
+  } else {
+    feedbackText = data.feedback;
+  }
+  // Ensure feedbackText is a string before trimming.
+  feedbackText = String(feedbackText).trim();
+  resumeCategory.innerHTML += `<br><em>${feedbackText}</em>`;
+}
+
+          jobForm.style.display = "block";
+          void jobForm.offsetWidth;
+          jobForm.style.opacity = "1";
+          jobForm.style.transform = "translateX(0)";
+        }
+      })
+      .catch(error => {
+        loading.style.display = "none";
+        errorMessage.style.display = "block";
+        errorMessage.innerText = "Error uploading: " + error.message;
+      });
     }
 
     function submitJobDescription() {
@@ -457,14 +512,15 @@
         return;
       }
 
-      const jobResult = document.getElementById("job-result");
-      const feedbackResult = document.getElementById("feedback-result");
-      const submitBtn = document.getElementById("submit-btn");
+      // Clear previous results
+      document.getElementById("job-result").innerHTML = "";
+      document.getElementById("feedback-result").innerHTML = "";
+      document.getElementById("career-recommendation").innerHTML = "";
 
+      const submitBtn = document.getElementById("submit-btn");
       submitBtn.disabled = true;
 
-      // First call: check_suitability
-      fetch("http://127.0.0.1:5000/check_suitability", {
+      fetch(`${API_URL}/predict/check_suitability`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -472,30 +528,58 @@
           resume_skills: extractedSkills
         })
       })
-        .then(response => response.json())
-        .then(data => {
-          jobResult.innerHTML = `<strong>${data.result}</strong>`;
-          // Second call: generate_feedback
-          return fetch("http://127.0.0.1:5000/generate_feedback", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              job_description: jobDesc,
-              resume_skills: extractedSkills
-            })
-          });
-        })
-        .then(response => response.json())
-        .then(data => {
-          feedbackResult.innerHTML = `<strong>${data.feedback}</strong>`;
-        })
-        .catch(error => {
-          alert("Error: " + error.message);
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-          document.getElementById("job-description").value = "";
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("job-result").innerHTML = `<strong>Suitability: ${data.result}</strong>`;
+        // Second API call: generate_feedback
+        return fetch(`${API_URL}/generate_feedback`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            job_description: jobDesc,
+            resume_skills: extractedSkills
+          })
         });
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("feedback-result").innerHTML = `<strong>Feedback: ${data.feedback}</strong>`;
+        // Third API call: career_recommendation
+        return fetch(`${API_URL}/career_recommendation`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            profile: extractedSkills.join(', ')
+          })
+        });
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("career-recommendation").innerHTML =
+          `<strong>Career Recommendation: ${data.recommendation}</strong>
+           <br><small>Probabilities: ${JSON.stringify(data.probabilities)}</small>`;
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        document.getElementById("job-description").value = "";
+      });
+    }
+
+    function redirectToLinkedIn() {
+      window.open("https://www.linkedin.com/", "_blank");
+    }
+
+    // This function is only called when the download button in the info section is clicked.
+    function downloadResume() {
+      const link = document.createElement('a');
+      link.href = 'resume1.pdf';
+      link.download = 'resume1.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   </script>
 </body>
