@@ -1,4 +1,4 @@
-# CareerKraft
+#  CareerKraft
 
 AI-driven résumé evaluator and career recommender.
 
